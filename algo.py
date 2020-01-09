@@ -66,7 +66,7 @@ def solve(map, queue, end):
         # checkDown = (map[row + 1][column] == "-") and row + 1 < len(map[:])
         # checkRight = (map[row][column + 1] == "-") and column + 1 < len(map[0][:])
 
-        if (checkDown):
+        if (checkDown): # if down index for example is empty and equals '-' then append the coord tuple
             queue.append((row + 1, column))
 
         if (checkRight):
@@ -77,7 +77,6 @@ def solve(map, queue, end):
 
         if (checkLeft):
             queue.append((row, column - 1))
-
 
         print(queue)
         pmap()
