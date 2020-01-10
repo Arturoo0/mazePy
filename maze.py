@@ -1,0 +1,54 @@
+
+import shapes
+
+class Maze :
+
+    map = []
+
+    def __init__(self):
+        print("meme")
+
+    def generateMap(self, rows, columns, WINDOW_SIZE):
+
+        x = 0
+        y = 0
+        parityCount = 1
+        incrementY =  WINDOW_SIZE[1]/ rows
+        incrementX = WINDOW_SIZE[0]/ columns
+
+        for column in range(columns):
+            for row in range(rows):
+
+                if parityCount % 2 == 0:
+                    shapes.drawRec(x, y, incrementY, incrementY, (255,255,255))
+                else :
+                    shapes.drawRec(x, y, incrementY, incrementY, (255,0,0))
+
+                parityCount += 1
+                y += incrementY
+
+            y = 0
+            x += incrementY
+
+
+
+
+
+# def drawRec(x, y, sizeX, sizeY): # easier way of creating new rectangles
+#     pygame.draw.rect(display, (0,0,0), [x, y, sizeX, sizeY], 1)
+#
+# def drawGrid(rows, columns): # creates the grid to the display
+#
+#     x = 0
+#     y = 0
+#     incrementY =  WINDOW_SIZE[1]/ rows
+#     incrementX = WINDOW_SIZE[0]/ columns
+#
+#     for column in range(columns):
+#
+#         for row in range(rows):
+#             drawRec(x, y, incrementY, incrementY)
+#             y += incrementY
+#
+#         y = 0
+#         x += incrementY

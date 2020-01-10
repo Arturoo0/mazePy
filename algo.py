@@ -22,7 +22,6 @@ def checkEnd(x,y):
     else :
         return False
 
-
 def solve(map, queue, end):
     while (True):
 
