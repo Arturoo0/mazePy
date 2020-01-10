@@ -8,20 +8,32 @@ class Maze :
 
         x = 0
         y = 0
-        parityCount = 1
+        parityCountY = 1
+        parityCountX = 1
         incrementY =  WINDOW_SIZE[1]/ rows
         incrementX = WINDOW_SIZE[0]/ columns
 
         for column in range(columns):
+
+            parityCountX += 1
+
             for row in range(rows):
 
-                if parityCount % 2 == 0:
-                    shapes.drawRec(display, x, y, incrementY, incrementY, (255,255,255))
-                else :
-                    shapes.drawRec(display, x, y, incrementY, incrementY, (255,0,0))
+                if parityCountY % 2 == 0 :
 
-                parityCount += 1
+                    shapes.drawRec(display, x, y, incrementY, incrementY, (255,255,255))
+                    self.map.append((x,y))
+
+                else :
+                    if parityCountX % 2 != 0:
+                        shapes.drawRec(display, x, y, incrementY, incrementY, (255,255,255))
+                        self.map.append((x,y))
+                    else :
+                        shapes.drawRec(display, x, y, incrementY, incrementY, (255,0,0))
+                        self.map.append((x,y))
+
                 y += incrementY
+                parityCountY += 1
 
             y = 0
             x += incrementY
