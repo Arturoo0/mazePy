@@ -1,14 +1,10 @@
-
 import shapes
 
 class Maze :
 
     map = []
 
-    def __init__(self):
-        print("meme")
-
-    def generateMap(self, rows, columns, WINDOW_SIZE):
+    def generateMap(self, display, rows, columns, WINDOW_SIZE):
 
         x = 0
         y = 0
@@ -20,18 +16,15 @@ class Maze :
             for row in range(rows):
 
                 if parityCount % 2 == 0:
-                    shapes.drawRec(x, y, incrementY, incrementY, (255,255,255))
+                    shapes.drawRec(display, x, y, incrementY, incrementY, (255,255,255))
                 else :
-                    shapes.drawRec(x, y, incrementY, incrementY, (255,0,0))
+                    shapes.drawRec(display, x, y, incrementY, incrementY, (255,0,0))
 
                 parityCount += 1
                 y += incrementY
 
             y = 0
             x += incrementY
-
-
-
 
 
 # def drawRec(x, y, sizeX, sizeY): # easier way of creating new rectangles
