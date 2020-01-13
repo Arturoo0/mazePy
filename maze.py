@@ -8,35 +8,18 @@ class Maze :
 
         x = 0
         y = 0
-        parityCountY = 1
-        parityCountX = 1
         incrementY =  WINDOW_SIZE[1]/ rows
         incrementX = WINDOW_SIZE[0]/ columns
 
-        for column in range(columns):
+        for row in range(rows):
 
-            parityCountX += 1
+            for column in range(columns):
 
-            for row in range(rows):
+                shapes.drawRec(display, x, y, incrementY, incrementY, (255,0,0))
+                x += incrementX
 
-                if parityCountY % 2 == 0 :
-
-                    shapes.drawRec(display, x, y, incrementY, incrementY, (255,255,255))
-                    self.map.append((x,y))
-
-                else :
-                    if parityCountX % 2 != 0:
-                        shapes.drawRec(display, x, y, incrementY, incrementY, (255,255,255))
-                        self.map.append((x,y))
-                    else :
-                        shapes.drawRec(display, x, y, incrementY, incrementY, (255,0,0))
-                        self.map.append((x,y))
-
-                y += incrementY
-                parityCountY += 1
-
-            y = 0
-            x += incrementY
+            x = 0
+            y += incrementY
 
 
 # def drawRec(x, y, sizeX, sizeY): # easier way of creating new rectangles
