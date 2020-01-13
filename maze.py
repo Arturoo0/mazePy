@@ -12,14 +12,24 @@ class Maze :
         incrementX = WINDOW_SIZE[0]/ columns
 
         for row in range(rows):
+            if ((row + 1) % 2 != 0) :
 
-            for column in range(columns):
+                for column in range(columns):
 
-                shapes.drawRec(display, x, y, incrementY, incrementY, (255,0,0))
-                x += incrementX
+                    shapes.drawRec(display, x, y, incrementY, incrementY, (255,0,0))
+                    x += incrementX
 
-            x = 0
-            y += incrementY
+                x = 0
+                y += incrementY
+
+            else :
+                for column in range(columns):
+
+                    shapes.drawRec(display, x, y, incrementY, incrementY, (255,255,255))
+                    x += incrementX
+
+                x = 0
+                y += incrementY
 
 
 # def drawRec(x, y, sizeX, sizeY): # easier way of creating new rectangles

@@ -18,6 +18,6 @@ while run:
     display.fill((255,255,255))
 
     # shapes.drawRec(display,50,50, 40, 40, (0,0,0))
-    mazeObj.generateMap(display, 3, 3, WINDOW_SIZE)
+    mazeObj.generateMap(display, 7, 7, WINDOW_SIZE)
 
     pygame.display.update()
