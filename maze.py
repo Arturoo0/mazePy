@@ -113,4 +113,62 @@ class Maze :
           direction = []
 
         direction = []
-        self.printMap(display, WINDOW_SIZE)
+
+    def solve(self):
+
+        queue = [(0,0)]
+        end = (len(self.map[:]) - 1, len(self.map[:]) - 1)
+        print(end)
+
+        while (True):
+
+            if len(queue) == 0:
+                print("No path found")
+                break
+            else :
+                current = queue.pop(0)
+
+            row = current[0]
+            column = current[1]
+
+            self.map[row][column] = "X"
+
+            if (row == end[0] and column == end[1]):
+                return True
+            else :
+                return False
+
+            if (row + 1 < len(self.map[:])): #checks bottom index
+                checkDown = (self.map[row + 1][column] == "o")
+            else:
+                checkDown = False
+
+            if (column + 1 < len(self.map[0][:])): #checks the right index
+                checkRight = (self.map[row][column + 1] == "o")
+            else :
+                checkRight = False
+
+            if (column - 1 > -1): #checks the left index
+                checkLeft = (self.map[row][column - 1] == "o")
+            else :
+                checkLeft = False
+
+            if (row - 1 > -1): #checks the top index
+                checkTop = (self.map[row - 1][column] == "o")
+            else :
+                checkTop = False
+
+            # checkDown = (self.map[row + 1][column] == "-") and row + 1 < len(self.map[:])
+            # checkRight = (self.map[row][column + 1] == "-") and column + 1 < len(self.map[0][:])
+
+            if (checkDown): # if down index for example is empty and equals '-' then append the coord tuple
+                queue.append((row + 1, column))
+
+            if (checkRight):
+                queue.append((row, column + 1))
+
+            if (checkTop):
+                queue.append((row - 1, column))
+
+            if (checkLeft):
+                queue.append((row, column - 1))
