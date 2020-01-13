@@ -1,5 +1,7 @@
 import shapes
 import color
+import random
+import pygame
 
 class Maze :
 
@@ -35,7 +37,7 @@ class Maze :
             if (row + 1) % 2 != 0 :
                 for column in range(len(self.map)):
 
-                    if (self.map[row][column] == "-"):
+                    if (self.map[row][column] == "-" or self.map[row][column] == "o"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, color.ORANGE)
                         x += sizeIncrement
                     else :
@@ -47,51 +49,68 @@ class Maze :
 
             else :
                 for column in range(len(self.map)):
-                    shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, color.WHITE)
-                    x += sizeIncrement
+
+                    if (self.map[row][column] == "o"):
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, color.ORANGE)
+                        x += sizeIncrement
+                    else :
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, color.WHITE)
+                        x += sizeIncrement
 
                 y += sizeIncrement
                 x = 0
 
-        # for row in range(rows):
-        #
-        #     if ((row + 1) % 2 != 0) :
-        #         for column in range(columns):
-        #             if((column + 1) % 2 != 0):
-        #                 shapes.drawRec(display, x, y, incrementY, incrementY, (255,0,0))
-        #                 x += incrementX
-        #             else :
-        #                 shapes.drawRec(display, x, y, incrementY, incrementY, (255,255,255))
-        #                 x += incrementX
-        #
-        #         x = 0
-        #         y += incrementY
-        #
-        #     else :
-        #         for column in range(columns):
-        #
-        #             shapes.drawRec(display, x, y, incrementY, incrementY, (255,255,255))
-        #             x += incrementX
-        #
-        #         x = 0
-        #         y += incrementY
+    def generateMaze(self, display, WINDOW_SIZE): # TRAVELED == o, direction; (1:top), (2:bottom), (3:left), (4:right)
+
+      backStack = [(0,0)]
+      current = backStack[-1]
+      direction = []
+
+      while (len(backStack) != 0):
+
+        row = current[0]
+        column = current[1]
+
+        self.map[row][column] = "o"
 
 
-# def drawRec(x, y, sizeX, sizeY): # easier way of creating new rectangles
-#     pygame.draw.rect(display, (0,0,0), [x, y, sizeX, sizeY], 1)
-#
-# def drawGrid(rows, columns): # creates the grid to the display
-#
-#     x = 0
-#     y = 0
-#     incrementY =  WINDOW_SIZE[1]/ rows
-#     incrementX = WINDOW_SIZE[0]/ columns
-#
-#     for column in range(columns):
-#
-#         for row in range(rows):
-#             drawRec(x, y, incrementY, incrementY)
-#             y += incrementY
-#
-#         y = 0
-#         x += incrementY
+        if (row + 2 < len(self.map[:])): #checks bottom index
+          checkDown = (self.map[row + 2][column] == "-")
+          direction.append(3)
+        else:
+          checkDown = False
+
+        if (column + 2 < len(self.map[0][:])): #checks the right index
+          checkRight = (self.map[row][column + 2] == "-")
+          direction.append(2)
+        else :
+          checkRight = False
+
+        if (column - 2 > -1): #checks the left index
+          checkLeft = (self.map[row][column - 2] == "-")
+          direction.append(4)
+        else :
+          checkLeft = False
+
+        if (row - 1 > -1): #checks the top index
+          checkTop = (self.map[row - 2][column] == "-")
+          direction.append(1)
+        else :
+          checkTop = False
+
+        if (checkDown == False and checkRight == False and checkLeft == False and checkTop == False):
+          current = backStack.pop()
+
+        else :
+          direc = random.sample(direction, 1)[0]
+
+          self.map[row][column] = "o"
+
+          if direc == 1 and checkTop : current = (row - 2, column); backStack.append((row, column)); self.map[row - 1][column] = "o"
+          if direc == 2 and checkRight : current = (row, column + 2); backStack.append((row, column)); self.map[row][column + 1] = "o"
+          if direc == 3 and checkDown : current = (row + 2, column); backStack.append((row, column)); self.map[row + 1][column] = "o"
+          if direc == 4 and checkLeft : current = (row, column - 2); backStack.append((row, column)); self.map[row][column - 1] = "o"
+          direction = []
+
+        direction = []
+        self.printMap(display, WINDOW_SIZE)
