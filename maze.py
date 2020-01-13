@@ -158,9 +158,6 @@ class Maze :
             else :
                 checkTop = False
 
-            # checkDown = (self.map[row + 1][column] == "-") and row + 1 < len(self.map[:])
-            # checkRight = (self.map[row][column + 1] == "-") and column + 1 < len(self.map[0][:])
-
             if (checkDown): # if down index for example is empty and equals '-' then append the coord tuple
                 queue.append((row + 1, column))
 
