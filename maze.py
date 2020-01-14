@@ -30,6 +30,7 @@ class Maze :
 
         tileColor = color.BLACK
         wallColor = color.WHITE
+        solColor = color.PINK
 
         x = 0
         y = 0
@@ -43,6 +44,9 @@ class Maze :
                     if (self.map[row][column] == "-" or self.map[row][column] == "o"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, tileColor)
                         x += sizeIncrement
+                    elif (self.map[row][column] == "X"):
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, solColor)
+                        x += sizeIncrement
                     else :
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, wallColor)
                         x += sizeIncrement
@@ -53,8 +57,11 @@ class Maze :
             else :
                 for column in range(len(self.map)):
 
-                    if (self.map[row][column] == "o"):
+                    if (self.map[row][column] == "o" or self.map[row][column] == "-"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, tileColor)
+                        x += sizeIncrement
+                    elif (self.map[row][column] == "X"):
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, solColor)
                         x += sizeIncrement
                     else :
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, wallColor)
@@ -116,8 +123,6 @@ class Maze :
           direction = []
 
           direction = []
-
-        self.printMap(display, WINDOW_SIZE)
 
     def solve(self):
 
