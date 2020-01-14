@@ -112,7 +112,9 @@ class Maze :
           if direc == 4 and checkLeft : current = (row, column - 2); backStack.append((row, column)); self.map[row][column - 1] = "o"
           direction = []
 
-        direction = []
+          direction = []
+
+        self.printMap(display, WINDOW_SIZE)
 
     def solve(self):
 

@@ -8,12 +8,12 @@ WINDOW_SIZE = (700, 700)
 display = pygame.display.set_mode(WINDOW_SIZE)
 
 pygame.display.set_caption("MazePy")
-mazeObj = maze.Maze()
 
-GRID_SIZE = 11
+mazeObj = maze.Maze()
+GRID_SIZE = 31
 mazeObj.generateMap(GRID_SIZE)
-mazeObj.generateMaze(display, WINDOW_SIZE)
-print(mazeObj.map)
+
+clock = pygame.time.Clock()
 
 run = True
 while run:
@@ -23,9 +23,11 @@ while run:
 
     display.fill(color.WHITE)
 
-    mazeObj.printMap(display, WINDOW_SIZE)
+    mazeObj.generateMaze(display, WINDOW_SIZE)
 
     # shapes.drawRec(display,50,50, 40, 40, (0,0,0))
     # mazeObj.generateMap(display, 7, 7, WINDOW_SIZE)
 
     pygame.display.update()
+
+    clock.tick(60)
