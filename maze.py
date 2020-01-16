@@ -128,7 +128,6 @@ class Maze :
 
         queue = [(0,0)]
         end = (len(self.map[:]) - 1, len(self.map[:]) - 1)
-        print(end)
 
         while (True):
 
@@ -145,8 +144,6 @@ class Maze :
 
             if (row == end[0] and column == end[1]):
                 return True
-            else :
-                return False
 
             if (row + 1 < len(self.map[:])): #checks bottom index
                 checkDown = (self.map[row + 1][column] == "o")
