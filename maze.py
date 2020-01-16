@@ -28,6 +28,10 @@ class Maze :
 
     def printMap(self, display, WINDOW_SIZE):
 
+        tileColor = color.BLACK
+        wallColor = color.WHITE
+        solColor = color.PINK
+
         x = 0
         y = 0
         sizeIncrement =  WINDOW_SIZE[0]/ len(self.map)
@@ -38,10 +42,13 @@ class Maze :
                 for column in range(len(self.map)):
 
                     if (self.map[row][column] == "-" or self.map[row][column] == "o"):
-                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, color.ORANGE)
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, tileColor)
+                        x += sizeIncrement
+                    elif (self.map[row][column] == "X"):
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, solColor)
                         x += sizeIncrement
                     else :
-                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, color.WHITE)
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, wallColor)
                         x += sizeIncrement
 
                 y += sizeIncrement
@@ -50,11 +57,14 @@ class Maze :
             else :
                 for column in range(len(self.map)):
 
-                    if (self.map[row][column] == "o"):
-                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, color.ORANGE)
+                    if (self.map[row][column] == "o" or self.map[row][column] == "-"):
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, tileColor)
+                        x += sizeIncrement
+                    elif (self.map[row][column] == "X"):
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, solColor)
                         x += sizeIncrement
                     else :
-                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, color.WHITE)
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, wallColor)
                         x += sizeIncrement
 
                 y += sizeIncrement
@@ -112,13 +122,12 @@ class Maze :
           if direc == 4 and checkLeft : current = (row, column - 2); backStack.append((row, column)); self.map[row][column - 1] = "o"
           direction = []
 
-        direction = []
+          direction = []
 
     def solve(self):
 
         queue = [(0,0)]
         end = (len(self.map[:]) - 1, len(self.map[:]) - 1)
-        print(end)
 
         while (True):
 
@@ -135,8 +144,6 @@ class Maze :
 
             if (row == end[0] and column == end[1]):
                 return True
-            else :
-                return False
 
             if (row + 1 < len(self.map[:])): #checks bottom index
                 checkDown = (self.map[row + 1][column] == "o")
@@ -157,9 +164,6 @@ class Maze :
                 checkTop = (self.map[row - 1][column] == "o")
             else :
                 checkTop = False
-
-            # checkDown = (self.map[row + 1][column] == "-") and row + 1 < len(self.map[:])
-            # checkRight = (self.map[row][column + 1] == "-") and column + 1 < len(self.map[0][:])
 
             if (checkDown): # if down index for example is empty and equals '-' then append the coord tuple
                 queue.append((row + 1, column))
