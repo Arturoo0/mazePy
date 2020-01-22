@@ -7,6 +7,10 @@ class Maze :
 
     map = []
 
+    # def retraceSolution(hashMap, end):
+    #     while (True):
+
+
     def generateMap(self, rows):
 
         for row in range(rows):
@@ -126,14 +130,16 @@ class Maze :
 
     def solve(self):
 
+        # hashMap tile; parent
+
         queue = [(0,0)]
         end = (len(self.map[:]) - 1, len(self.map[:]) - 1)
+        parentHash = {}
 
         while (True):
 
             if len(queue) == 0:
-                print("No path found")
-                break
+                return False;
             else :
                 current = queue.pop(0)
 
@@ -143,6 +149,7 @@ class Maze :
             self.map[row][column] = "X"
 
             if (row == end[0] and column == end[1]):
+                # retraceSolution(parentHash, end)
                 return True
 
             if (row + 1 < len(self.map[:])): #checks bottom index
@@ -167,12 +174,16 @@ class Maze :
 
             if (checkDown): # if down index for example is empty and equals '-' then append the coord tuple
                 queue.append((row + 1, column))
+                parentHash[(row + 1, column)] = (row, column)
 
             if (checkRight):
                 queue.append((row, column + 1))
+                parentHash[(row, column + 1)] = (row, column)
 
             if (checkTop):
                 queue.append((row - 1, column))
+                parentHash[(row - 1, column)] = (row, column)
 
             if (checkLeft):
                 queue.append((row, column - 1))
+                parentHash[(row, column - 1)] = (row, column)

@@ -7,7 +7,7 @@ WINDOW_SIZE = (700, 700)
 display = pygame.display.set_mode(WINDOW_SIZE)
 
 pygame.display.set_caption("MazePy")
-GRID_SIZE = 31
+GRID_SIZE = 81
 
 mazeObj = maze.Maze()
 mazeObj.generateMap(GRID_SIZE)
