@@ -10,6 +10,8 @@ class Maze :
     def retraceSolution(self, hashMap, end):
 
         currentParent = hashMap[end]
+        self.map[end[0]][end[1]] = "s"
+        self.map[0][0] = "s" 
 
         while (True):
             self.map[currentParent[0]][currentParent[1]] = "s"
