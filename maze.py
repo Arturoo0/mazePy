@@ -7,9 +7,17 @@ class Maze :
 
     map = []
 
-    # def retraceSolution(hashMap, end):
-    #     while (True):
+    def retraceSolution(self, hashMap, end):
 
+        currentParent = hashMap[end]
+
+        while (True):
+            self.map[currentParent[0]][currentParent[1]] = "s"
+            currentParent = hashMap[currentParent]
+
+            if (hashMap[currentParent] == (0, 0)):
+                self.map[currentParent[0]][currentParent[1]] = "s"
+                return True
 
     def generateMap(self, rows):
 
@@ -34,7 +42,8 @@ class Maze :
 
         tileColor = color.BLACK
         wallColor = color.WHITE
-        solColor = color.PINK
+        fillColor = color.PINK
+        solColor = color.ORANGE
 
         x = 0
         y = 0
@@ -49,6 +58,9 @@ class Maze :
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, tileColor)
                         x += sizeIncrement
                     elif (self.map[row][column] == "X"):
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, fillColor)
+                        x += sizeIncrement
+                    elif (self.map[row][column] == "s"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, solColor)
                         x += sizeIncrement
                     else :
@@ -65,6 +77,9 @@ class Maze :
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, tileColor)
                         x += sizeIncrement
                     elif (self.map[row][column] == "X"):
+                        shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, fillColor)
+                        x += sizeIncrement
+                    elif (self.map[row][column] == "s"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, solColor)
                         x += sizeIncrement
                     else :
@@ -134,7 +149,7 @@ class Maze :
 
         queue = [(0,0)]
         end = (len(self.map[:]) - 1, len(self.map[:]) - 1)
-        parentHash = {}
+        parentHash = {(0,0):(0,0)}
 
         while (True):
 
@@ -149,7 +164,7 @@ class Maze :
             self.map[row][column] = "X"
 
             if (row == end[0] and column == end[1]):
-                # retraceSolution(parentHash, end)
+                self.retraceSolution(parentHash, end)
                 return True
 
             if (row + 1 < len(self.map[:])): #checks bottom index
