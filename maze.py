@@ -46,12 +46,12 @@ class Maze :
         tileColor = color.BLACK
         wallColor = color.WHITE
         fillColor = color.PINK
-        solColor = color.ORANGE
+        solColor = color.BABY_BLUE
 
         x = 0
         y = 0
         sizeIncrement = WINDOW_SIZE[0]/len(self.map[:])
-        
+
         for row in range(len(self.map)):
 
             if (row + 1) % 2 != 0 :

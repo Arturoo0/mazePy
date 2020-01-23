@@ -2,12 +2,19 @@
 import pygame
 import maze
 import color
+import varSizing
+import sys
+
 pygame.init()
-WINDOW_SIZE = (700, 700)
+
+GRID_SIZE = 75
+if GRID_SIZE > 1500: sys.exit();
+
+WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
 display = pygame.display.set_mode(WINDOW_SIZE)
+print(WINDOW_SIZE)
 
 pygame.display.set_caption("MazePy")
-GRID_SIZE = 35 
 
 mazeObj = maze.Maze()
 mazeObj.generateMap(GRID_SIZE)
