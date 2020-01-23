@@ -6,7 +6,7 @@ def adjustSize(gridSize):
 
     for res in pixelRange:
         if res % gridSize == 0:
-            size = res
+            size = (res, res)
             break
 
     return size
