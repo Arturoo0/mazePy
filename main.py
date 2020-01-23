@@ -7,7 +7,9 @@ import sys
 
 pygame.init()
 
-GRID_SIZE = 75
+clock = pygame.time.Clock()
+
+GRID_SIZE = 33
 if GRID_SIZE > 1500: sys.exit();
 
 WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
@@ -21,14 +23,26 @@ mazeObj.generateMap(GRID_SIZE)
 mazeObj.generateMaze(display, WINDOW_SIZE)
 mazeObj.solve()
 
+timer = 0
+
 run = True
 while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
-
     display.fill(color.BLACK)
+    dt = 2 * (clock.tick(60))
+
+    #if timer ...
+    timer += dt
+    print(dt)
+
+    if (timer > .005 and mazeObj.retraceAnimation.animationQueue):
+        currentAnimation = mazeObj.retraceAnimation.dequeStep()
+        mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "s"
+        timer = 0
+
     mazeObj.printMap(display, WINDOW_SIZE)
 
     pygame.display.update()

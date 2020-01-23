@@ -3,24 +3,26 @@ import color
 import random
 import pygame
 import math
+import animation
 
 class Maze :
 
     map = []
+    retraceAnimation = animation.Animation()
 
     def retraceSolution(self, hashMap, end):
 
         currentParent = hashMap[end]
-        self.map[end[0]][end[1]] = "s"
-        self.map[0][0] = "s"
 
         while (True):
-            self.map[currentParent[0]][currentParent[1]] = "s"
+            self.retraceAnimation.queueStep(currentParent)
             currentParent = hashMap[currentParent]
 
             if (hashMap[currentParent] == (0, 0)):
-                self.map[currentParent[0]][currentParent[1]] = "s"
+                # self.map[currentParent[0]][currentParent[1]] = "s"
+                self.retraceAnimation.queueStep((0,0))
                 return True
+
 
     def generateMap(self, rows):
 
