@@ -2,6 +2,7 @@ import shapes
 import color
 import random
 import pygame
+import math
 
 class Maze :
 
@@ -11,7 +12,7 @@ class Maze :
 
         currentParent = hashMap[end]
         self.map[end[0]][end[1]] = "s"
-        self.map[0][0] = "s" 
+        self.map[0][0] = "s"
 
         while (True):
             self.map[currentParent[0]][currentParent[1]] = "s"
@@ -49,8 +50,8 @@ class Maze :
 
         x = 0
         y = 0
-        sizeIncrement =  WINDOW_SIZE[0]/ len(self.map)
-
+        sizeIncrement = WINDOW_SIZE[0]/len(self.map[:])
+        
         for row in range(len(self.map)):
 
             if (row + 1) % 2 != 0 :
