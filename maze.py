@@ -13,12 +13,13 @@ class Maze :
     def retraceSolution(self, hashMap, end):
 
         currentParent = hashMap[end]
+        self.retraceAnimation.queueStep(end)
 
         while (True):
             self.retraceAnimation.queueStep(currentParent)
             currentParent = hashMap[currentParent]
 
-            if (hashMap[currentParent] == (0, 0)):
+            if (hashMap[currentParent] == (-1, -1)):
                 # self.map[currentParent[0]][currentParent[1]] = "s"
                 self.retraceAnimation.queueStep((0,0))
                 return True
@@ -154,7 +155,7 @@ class Maze :
 
         queue = [(0,0)]
         end = (len(self.map[:]) - 1, len(self.map[:]) - 1)
-        parentHash = {(0,0):(0,0)}
+        parentHash = {(0,0):(-1,-1)}
 
         while (True):
 
