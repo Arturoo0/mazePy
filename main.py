@@ -7,7 +7,7 @@ import sys
 
 pygame.init()
 
-GRID_SIZE = 133
+GRID_SIZE = 75
 if GRID_SIZE > 1500: sys.exit();
 
 WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
