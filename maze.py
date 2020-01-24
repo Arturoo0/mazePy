@@ -144,7 +144,7 @@ class Maze :
           # if direc == 4 and checkLeft : current = (row, column - 2); backStack.append((row, column)); self.mazeAnimation.queueStep((row, column - 1))
 
           current = (row + direc[0], column + direc[1])
-          backStack.append((row, column))
+          backStack.append((row + direc[0], column + direc[1]))
           self.mazeAnimation.queueStep((row + direc[2], column + direc[3]))
 
           direction = []

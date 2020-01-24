@@ -9,7 +9,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-GRID_SIZE = 15
+GRID_SIZE = 13
 if GRID_SIZE > 1500: sys.exit();
 
 WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
@@ -44,7 +44,7 @@ while run:
         mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "o"
         timer = 0
 
-    if (not mazeObj.mazeAnimation.animationQueue and solved == False):
+    if (len(mazeObj.mazeAnimation.animationQueue) == 0 and solved == False):
         solvedMap, end = mazeObj.solve()
         solved = True
         mazeObj.retraceSolution(solvedMap, end)
