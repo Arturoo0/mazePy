@@ -140,11 +140,6 @@ class Maze :
         else :
           direc = random.sample(direction, 1)[0]
 
-          # if direc == 1 and checkTop : current = (row - 2, column); backStack.append((row, column)); self.mazeAnimation.queueStep((row - 1, column))
-          # if direc == 2 and checkRight : current = (row, column + 2); backStack.append((row, column)); self.mazeAnimation.queueStep((row, column + 1))
-          # if direc == 3 and checkDown : current = (row + 2, column); backStack.append((row, column)); self.mazeAnimation.queueStep((row + 1, column))
-          # if direc == 4 and checkLeft : current = (row, column - 2); backStack.append((row, column)); self.mazeAnimation.queueStep((row, column - 1))
-
           backStack.append((row + direc[0], column + direc[1]))
           self.mazeAnimation.queueStep((row + direc[2], column + direc[3]))
 
