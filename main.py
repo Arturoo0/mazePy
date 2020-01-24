@@ -38,9 +38,9 @@ while run:
     timer += dt
     print(dt)
 
-    if (timer > .005 and mazeObj.retraceAnimation.animationQueue):
-        currentAnimation = mazeObj.retraceAnimation.dequeStep()
-        mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "s"
+    if (timer > .005 and mazeObj.mazeAnimation.animationQueue):
+        currentAnimation = mazeObj.mazeAnimation.dequeStep()
+        mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "o"
         timer = 0
 
     mazeObj.printMap(display, WINDOW_SIZE)

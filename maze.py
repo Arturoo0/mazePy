@@ -9,6 +9,7 @@ class Maze :
 
     map = []
     retraceAnimation = animation.Animation()
+    mazeAnimation = animation.Animation()
 
     def retraceSolution(self, hashMap, end):
 
@@ -107,7 +108,7 @@ class Maze :
         column = current[1]
 
         self.map[row][column] = "o"
-
+        self.mazeAnimation.queueStep((row, column))
 
         if (row + 2 < len(self.map[:])): #checks bottom index
           checkDown = (self.map[row + 2][column] == "-")
@@ -140,11 +141,12 @@ class Maze :
           direc = random.sample(direction, 1)[0]
 
           self.map[row][column] = "o"
+          self.mazeAnimation.queueStep((row, column))
 
-          if direc == 1 and checkTop : current = (row - 2, column); backStack.append((row, column)); self.map[row - 1][column] = "o"
-          if direc == 2 and checkRight : current = (row, column + 2); backStack.append((row, column)); self.map[row][column + 1] = "o"
-          if direc == 3 and checkDown : current = (row + 2, column); backStack.append((row, column)); self.map[row + 1][column] = "o"
-          if direc == 4 and checkLeft : current = (row, column - 2); backStack.append((row, column)); self.map[row][column - 1] = "o"
+          if direc == 1 and checkTop : current = (row - 2, column); backStack.append((row, column)); self.mazeAnimation.queueStep((row - 1, column))
+          if direc == 2 and checkRight : current = (row, column + 2); backStack.append((row, column)); self.mazeAnimation.queueStep((row, column + 1))
+          if direc == 3 and checkDown : current = (row + 2, column); backStack.append((row, column)); self.mazeAnimation.queueStep((row + 1, column))
+          if direc == 4 and checkLeft : current = (row, column - 2); backStack.append((row, column)); self.mazeAnimation.queueStep((row, column - 1))
           direction = []
 
           direction = []
