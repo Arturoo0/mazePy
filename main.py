@@ -9,7 +9,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-GRID_SIZE = 13
+GRID_SIZE = 15
 if GRID_SIZE > 1500: sys.exit();
 
 WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
@@ -21,9 +21,10 @@ pygame.display.set_caption("MazePy")
 mazeObj = maze.Maze()
 mazeObj.generateMap(GRID_SIZE)
 mazeObj.generateMaze(display, WINDOW_SIZE)
-# mazeObj.solve()
 
 timer = 0
+solved = False
+solvedMap, end = {}, ()
 
 run = True
 while run:
@@ -37,11 +38,23 @@ while run:
     #if timer ...
     timer += dt
 
-    if (timer > .005 and mazeObj.mazeAnimation.animationQueue):
+    if (timer > .005 and len(mazeObj.mazeAnimation.animationQueue) > 0 and not solved):
+        print("HI bruh")
         currentAnimation = mazeObj.mazeAnimation.dequeStep()
         mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "o"
         timer = 0
 
+    if (not mazeObj.mazeAnimation.animationQueue and solved == False):
+        solvedMap, end = mazeObj.solve()
+        solved = True
+        mazeObj.retraceSolution(solvedMap, end)
+
+    if (solved and timer > .005 and len(mazeObj.retraceAnimation.animationQueue) > 0):
+        currentAnimation = mazeObj.retraceAnimation.dequeStep()
+        mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "s"
+        timer = 0
+
+    print(solved)
     mazeObj.printMap(display, WINDOW_SIZE)
 
     pygame.display.update()

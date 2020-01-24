@@ -109,39 +109,43 @@ class Maze :
 
         self.map[row][column] = "o"
 
+        checkTop = checkDown = checkLeft = checkRight = False
+
         if (row + 2 < len(self.map[:])): #checks bottom index
           checkDown = (self.map[row + 2][column] == "-")
-          direction.append(3)
-        else:
-          checkDown = False
+          if checkDown:
+            direction.append((2, 0, 1, 0))
 
         if (column + 2 < len(self.map[0][:])): #checks the right index
           checkRight = (self.map[row][column + 2] == "-")
-          direction.append(2)
-        else :
-          checkRight = False
+          if checkRight:
+              direction.append((0, 2, 0, 1))
+
 
         if (column - 2 > -1): #checks the left index
           checkLeft = (self.map[row][column - 2] == "-")
-          direction.append(4)
-        else :
-          checkLeft = False
+          if checkLeft:
+              direction.append((0, -2, 0, -1))
+
 
         if (row - 1 > -1): #checks the top index
           checkTop = (self.map[row - 2][column] == "-")
-          direction.append(1)
-        else :
-          checkTop = False
+          if checkTop:
+              direction.append((-2, 0, -1, 0))
 
         if (not (checkDown or checkRight or checkLeft or checkTop)):
           current = backStack.pop()
         else :
           direc = random.sample(direction, 1)[0]
 
-          if direc == 1 and checkTop : current = (row - 2, column); backStack.append((row, column)); self.mazeAnimation.queueStep((row - 1, column))
-          if direc == 2 and checkRight : current = (row, column + 2); backStack.append((row, column)); self.mazeAnimation.queueStep((row, column + 1))
-          if direc == 3 and checkDown : current = (row + 2, column); backStack.append((row, column)); self.mazeAnimation.queueStep((row + 1, column))
-          if direc == 4 and checkLeft : current = (row, column - 2); backStack.append((row, column)); self.mazeAnimation.queueStep((row, column - 1))
+          # if direc == 1 and checkTop : current = (row - 2, column); backStack.append((row, column)); self.mazeAnimation.queueStep((row - 1, column))
+          # if direc == 2 and checkRight : current = (row, column + 2); backStack.append((row, column)); self.mazeAnimation.queueStep((row, column + 1))
+          # if direc == 3 and checkDown : current = (row + 2, column); backStack.append((row, column)); self.mazeAnimation.queueStep((row + 1, column))
+          # if direc == 4 and checkLeft : current = (row, column - 2); backStack.append((row, column)); self.mazeAnimation.queueStep((row, column - 1))
+
+          current = (row + direc[0], column + direc[1])
+          backStack.append((row, column))
+          self.mazeAnimation.queueStep((row + direc[2], column + direc[3]))
 
           direction = []
 
@@ -166,28 +170,21 @@ class Maze :
             self.map[row][column] = "X"
 
             if (row == end[0] and column == end[1]):
-                self.retraceSolution(parentHash, end)
-                return True
+                return parentHash, end
+
+            checkTop = checkDown = checkLeft = checkRight = False
 
             if (row + 1 < len(self.map[:])): #checks bottom index
                 checkDown = (self.map[row + 1][column] == "o")
-            else:
-                checkDown = False
 
             if (column + 1 < len(self.map[0][:])): #checks the right index
                 checkRight = (self.map[row][column + 1] == "o")
-            else :
-                checkRight = False
 
             if (column - 1 > -1): #checks the left index
                 checkLeft = (self.map[row][column - 1] == "o")
-            else :
-                checkLeft = False
 
             if (row - 1 > -1): #checks the top index
                 checkTop = (self.map[row - 1][column] == "o")
-            else :
-                checkTop = False
 
             if (checkDown): # if down index for example is empty and equals '-' then append the coord tuple
                 queue.append((row + 1, column))
