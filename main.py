@@ -39,7 +39,6 @@ while run:
     timer += dt
 
     if (timer > .005 and len(mazeObj.mazeAnimation.animationQueue) > 0 and not solved):
-        print("HI bruh")
         currentAnimation = mazeObj.mazeAnimation.dequeStep()
         mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "o"
         timer = 0
@@ -54,7 +53,6 @@ while run:
         mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "s"
         timer = 0
 
-    print(solved)
     mazeObj.printMap(display, WINDOW_SIZE)
 
     pygame.display.update()

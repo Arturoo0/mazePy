@@ -10,6 +10,7 @@ class Maze :
     map = []
     retraceAnimation = animation.Animation()
     mazeAnimation = animation.Animation()
+    fillAnimation = animation.Animation()
 
     def retraceSolution(self, hashMap, end):
 
