@@ -4,6 +4,7 @@ import maze
 import color
 import varSizing
 import sys
+import animation
 
 pygame.init()
 
@@ -18,12 +19,13 @@ print(WINDOW_SIZE)
 
 pygame.display.set_caption("MazePy")
 
+animate = animation.Animation()
+
 mazeObj = maze.Maze()
 mazeObj.generateMap(GRID_SIZE)
 mazeObj.generateMaze(display, WINDOW_SIZE)
 
-print(mazeObj.map)
-print(mazeObj.animatedMap)
+
 hashMap, end = mazeObj.solve()
 mazeObj.retraceSolution(hashMap, end)
 
@@ -40,18 +42,8 @@ while run:
     #if timer ...
     timer += clock.tick(60)
 
-    if (timer > 1 and len(mazeObj.mainAnimation.animationQueue) > 0):
-
-        currentAnimation = mazeObj.mainAnimation.dequeStep()
-        print(currentAnimation)
-        if (currentAnimation[2] == "o"):
-            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]] = "o"
-        elif (currentAnimation[2] == "s"):
-            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]] = "s"
-        elif (currentAnimation[2] == "X") :
-            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]] = "X"
-
-        timer = 0
+    animate.startAnimation(mazeObj, timer)
+    timer = 0
 
     mazeObj.printMap(display, WINDOW_SIZE)
 
