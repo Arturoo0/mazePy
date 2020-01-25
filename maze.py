@@ -8,22 +8,24 @@ import animation
 class Maze :
 
     map = []
-    retraceAnimation = animation.Animation()
-    mazeAnimation = animation.Animation()
-    fillAnimation = animation.Animation()
+    animatedMap = []
+    # retraceAnimation = animation.Animation()
+    # mazeAnimation = animation.Animation()
+    # fillAnimation = animation.Animation()
+    mainAnimation = animation.Animation()
 
     def retraceSolution(self, hashMap, end):
 
         currentParent = hashMap[end]
-        self.retraceAnimation.queueStep(end)
+        self.mainAnimation.queueStep((end[0], end[1], "s"))
 
         while (True):
-            self.retraceAnimation.queueStep(currentParent)
+            self.mainAnimation.queueStep((currentParent[0], currentParent[1], "s"))
             currentParent = hashMap[currentParent]
 
             if (hashMap[currentParent] == (-1, -1)):
                 # self.map[currentParent[0]][currentParent[1]] = "s"
-                self.retraceAnimation.queueStep((0,0))
+                self.mainAnimation.queueStep((0,0, "s"))
                 return True
 
 
@@ -45,6 +47,7 @@ class Maze :
                 for column in range(rows):
                     self.map[row].append("|")
 
+        self.animatedMap = self.map[:]
 
     def printMap(self, display, WINDOW_SIZE):
 
@@ -62,13 +65,13 @@ class Maze :
             if (row + 1) % 2 != 0 :
                 for column in range(len(self.map)):
 
-                    if (self.map[row][column] == "-" or self.map[row][column] == "o"):
+                    if (self.animatedMap[row][column] == "-" or self.animatedMap[row][column] == "o"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, tileColor)
                         x += sizeIncrement
-                    elif (self.map[row][column] == "X"):
+                    elif (self.animatedMap[row][column] == "X"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, fillColor)
                         x += sizeIncrement
-                    elif (self.map[row][column] == "s"):
+                    elif (self.animatedMap[row][column] == "s"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, solColor)
                         x += sizeIncrement
                     else :
@@ -81,13 +84,13 @@ class Maze :
             else :
                 for column in range(len(self.map)):
 
-                    if (self.map[row][column] == "o" or self.map[row][column] == "-"):
+                    if (self.animatedMap[row][column] == "o" or self.animatedMap[row][column] == "-"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, tileColor)
                         x += sizeIncrement
-                    elif (self.map[row][column] == "X"):
+                    elif (self.animatedMap[row][column] == "X"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, fillColor)
                         x += sizeIncrement
-                    elif (self.map[row][column] == "s"):
+                    elif (self.animatedMap[row][column] == "s"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, solColor)
                         x += sizeIncrement
                     else :
@@ -98,7 +101,7 @@ class Maze :
                 x = 0
 
     def generateMaze(self, display, WINDOW_SIZE): # TRAVELED == o, direction; (1:top), (2:bottom), (3:left), (4:right)
-
+      print("entered")
       backStack = [(0,0)]
       current = backStack[-1]
       direction = []
@@ -124,12 +127,10 @@ class Maze :
           if checkRight:
               direction.append((0, 2, 0, 1))
 
-
         if (column - 2 > -1): #checks the left index
           checkLeft = (self.map[row][column - 2] == "-")
           if checkLeft:
               direction.append((0, -2, 0, -1))
-
 
         if (row - 1 > -1): #checks the top index
           checkTop = (self.map[row - 2][column] == "-")
@@ -142,7 +143,8 @@ class Maze :
           direc = random.sample(direction, 1)[0]
 
           backStack.append((row + direc[0], column + direc[1]))
-          self.mazeAnimation.queueStep((row + direc[2], column + direc[3]))
+          self.map[row + direc[2]][column + direc[3]] = "o"
+          self.mainAnimation.queueStep((row + direc[2], column + direc[3], "o"))
 
           direction = []
 
@@ -165,6 +167,7 @@ class Maze :
             column = current[1]
 
             self.map[row][column] = "X"
+            self.mainAnimation.queueStep((row, column, "X"))
 
             if (row == end[0] and column == end[1]):
                 return parentHash, end

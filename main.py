@@ -9,7 +9,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-GRID_SIZE = 37
+GRID_SIZE = 5
 if GRID_SIZE > 1500: sys.exit();
 
 WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
@@ -22,9 +22,12 @@ mazeObj = maze.Maze()
 mazeObj.generateMap(GRID_SIZE)
 mazeObj.generateMaze(display, WINDOW_SIZE)
 
+print(mazeObj.map)
+print(mazeObj.animatedMap)
+hashMap, end = mazeObj.solve()
+mazeObj.retraceSolution(hashMap, end)
+
 timer = 0
-solved = False
-solvedMap, end = {}, ()
 
 run = True
 while run:
@@ -38,19 +41,17 @@ while run:
     #if timer ...
     timer += dt
 
-    if (timer > .005 and len(mazeObj.mazeAnimation.animationQueue) > 0 and not solved):
-        currentAnimation = mazeObj.mazeAnimation.dequeStep()
-        mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "o"
-        timer = 0
+    if (timer > 0.005 and len(mazeObj.mainAnimation.animationQueue) > 0):
 
-    if (len(mazeObj.mazeAnimation.animationQueue) == 0 and solved == False):
-        solvedMap, end = mazeObj.solve()
-        solved = True
-        mazeObj.retraceSolution(solvedMap, end)
+        currentAnimation = mazeObj.mainAnimation.dequeStep()
 
-    if (solved and timer > .005 and len(mazeObj.retraceAnimation.animationQueue) > 0):
-        currentAnimation = mazeObj.retraceAnimation.dequeStep()
-        mazeObj.map[currentAnimation[0]][currentAnimation[1]] = "s"
+        if (currentAnimation[2] == "o"):
+            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]]
+        elif (currentAnimation[2] == "s"):
+            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]]
+        else :
+            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]]
+
         timer = 0
 
     mazeObj.printMap(display, WINDOW_SIZE)
