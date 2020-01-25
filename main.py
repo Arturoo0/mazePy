@@ -9,7 +9,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-GRID_SIZE = 13
+GRID_SIZE = 31
 if GRID_SIZE > 1500: sys.exit();
 
 WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
@@ -36,15 +36,14 @@ while run:
             run = False
 
     display.fill(color.BLACK)
-    dt = 2 * (clock.tick(60))
 
     #if timer ...
-    timer += dt
+    timer += clock.tick(60)
 
     if (timer > 1 and len(mazeObj.mainAnimation.animationQueue) > 0):
 
         currentAnimation = mazeObj.mainAnimation.dequeStep()
-
+        print(currentAnimation)
         if (currentAnimation[2] == "o"):
             mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]] = "o"
         elif (currentAnimation[2] == "s"):

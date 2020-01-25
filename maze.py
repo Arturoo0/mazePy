@@ -100,16 +100,15 @@ class Maze :
 
                     if (self.animatedMap[row][column] == "o" or self.animatedMap[row][column] == "-"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, tileColor)
-                        x += sizeIncrement
                     elif (self.animatedMap[row][column] == "X"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, fillColor)
-                        x += sizeIncrement
                     elif (self.animatedMap[row][column] == "s"):
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, solColor)
-                        x += sizeIncrement
                     else :
                         shapes.drawRec(display, x, y, sizeIncrement, sizeIncrement, wallColor)
-                        x += sizeIncrement
+
+                    x += sizeIncrement
+
 
                 y += sizeIncrement
                 x = 0
