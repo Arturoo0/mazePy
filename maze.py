@@ -189,28 +189,22 @@ class Maze :
 
             if (row + 1 < len(self.map[:])): #checks bottom index
                 checkDown = (self.map[row + 1][column] == "o")
-
             if (column + 1 < len(self.map[0][:])): #checks the right index
                 checkRight = (self.map[row][column + 1] == "o")
-
             if (column - 1 > -1): #checks the left index
                 checkLeft = (self.map[row][column - 1] == "o")
-
             if (row - 1 > -1): #checks the top index
                 checkTop = (self.map[row - 1][column] == "o")
 
             if (checkDown): # if down index for example is empty and equals '-' then append the coord tuple
                 queue.append((row + 1, column))
                 parentHash[(row + 1, column)] = (row, column)
-
             if (checkRight):
                 queue.append((row, column + 1))
                 parentHash[(row, column + 1)] = (row, column)
-
             if (checkTop):
                 queue.append((row - 1, column))
                 parentHash[(row - 1, column)] = (row, column)
-
             if (checkLeft):
                 queue.append((row, column - 1))
                 parentHash[(row, column - 1)] = (row, column)
