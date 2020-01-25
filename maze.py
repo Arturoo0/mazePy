@@ -47,7 +47,21 @@ class Maze :
                 for column in range(rows):
                     self.map[row].append("|")
 
-        self.animatedMap = self.map[:]
+            for row in range(rows):
+                self.animatedMap.append([])
+
+            for row in range(rows):
+
+                if ((row + 1) % 2 != 0):
+                    for column in range(rows):
+                        if ((column + 1) % 2 != 0) :
+                            self.animatedMap[row].append("-")
+                        else :
+                            self.animatedMap[row].append("|")
+
+                else :
+                    for column in range(rows):
+                        self.animatedMap[row].append("|")
 
     def printMap(self, display, WINDOW_SIZE):
 
