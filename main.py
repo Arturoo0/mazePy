@@ -46,11 +46,11 @@ while run:
         currentAnimation = mazeObj.mainAnimation.dequeStep()
 
         if (currentAnimation[2] == "o"):
-            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]]
+            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]] = "o"
         elif (currentAnimation[2] == "s"):
-            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]]
-        else :
-            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]]
+            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]] = "s"
+        elif (currentAnimation[2] == "X") :
+            mazeObj.animatedMap[currentAnimation[0]][currentAnimation[1]] = "X"
 
         timer = 0
 
