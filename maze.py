@@ -65,8 +65,8 @@ class Maze :
 
     def printMap(self, display, WINDOW_SIZE):
 
-        tileColor = color.BLACK
-        wallColor = color.WHITE
+        tileColor = color.WHITE
+        wallColor = color.BLACK
         fillColor = color.PINK
         solColor = color.BABY_BLUE
 
