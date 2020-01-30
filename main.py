@@ -10,7 +10,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-GRID_SIZE = 41
+GRID_SIZE = 31
 if GRID_SIZE > 1500: sys.exit();
 
 WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
@@ -42,7 +42,7 @@ while run:
     #if timer ...
     timer += clock.tick(60)
 
-    animate.startAnimation(mazeObj, timer)
+    animate.startAnimation(mazeObj, timer, GRID_SIZE)
     timer = 0
 
     mazeObj.printMap(display, WINDOW_SIZE)
