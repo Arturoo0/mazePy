@@ -10,7 +10,7 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-GRID_SIZE = 31
+GRID_SIZE = 111
 if GRID_SIZE > 1500: sys.exit();
 
 WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
