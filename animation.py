@@ -9,8 +9,13 @@ class Animation :
     def dequeStep(self):
         return self.animationQueue.pop(0)
 
+    def computeSpeed():
 
-    def startAnimation(self, mazeObj, timer):
+        return None
+
+    def startAnimation(self, mazeObj, timer, gridSize):
+
+    
 
         if (timer > 0.05 and len(mazeObj.mainAnimation.animationQueue) > 0):
 
