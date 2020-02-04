@@ -17,7 +17,6 @@ while run:
 
     config.display.fill(color.BLACK)
 
-    #if timer ...
     timer += config.clock.tick(60)
 
     config.animate.startAnimation(config.mazeObj, timer, config.GRID_SIZE)
