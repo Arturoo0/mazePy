@@ -5,29 +5,7 @@ import color
 import varSizing
 import sys
 import animation
-
-pygame.init()
-
-clock = pygame.time.Clock()
-
-GRID_SIZE = 111
-if GRID_SIZE > 1500: sys.exit();
-
-WINDOW_SIZE = varSizing.adjustSize(GRID_SIZE)
-display = pygame.display.set_mode(WINDOW_SIZE)
-print(WINDOW_SIZE)
-
-pygame.display.set_caption("MazePy")
-
-animate = animation.Animation()
-
-mazeObj = maze.Maze()
-mazeObj.generateMap(GRID_SIZE)
-mazeObj.generateMaze(display, WINDOW_SIZE)
-
-
-hashMap, end = mazeObj.solve()
-mazeObj.retraceSolution(hashMap, end)
+import config
 
 timer = 0
 
@@ -37,14 +15,14 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    display.fill(color.BLACK)
+    config.display.fill(color.BLACK)
 
     #if timer ...
-    timer += clock.tick(60)
+    timer += config.clock.tick(60)
 
-    animate.startAnimation(mazeObj, timer, GRID_SIZE)
+    config.animate.startAnimation(config.mazeObj, timer, config.GRID_SIZE)
     timer = 0
 
-    mazeObj.printMap(display, WINDOW_SIZE)
+    config.mazeObj.printMap(config.display, config.WINDOW_SIZE)
 
     pygame.display.update()
